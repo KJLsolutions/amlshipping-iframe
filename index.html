@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>AML Shipping</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+ <script src="//cdn.rawgit.com/rainabba/jquery-table2excel/1.1.0/dist/jquery.table2excel.min.js"></script>
+  <style type="text/css">
+/**LOADING ICON**/
+.lds-facebook {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+.lds-facebook div {
+  display: inline-block;
+  position: absolute;
+  left: 8px;
+  width: 16px;
+  background:  #005EB8;
+  animation: lds-facebook 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+}
+.lds-facebook div:nth-child(1) {
+  left: 8px;
+  animation-delay: -0.24s;
+}
+.lds-facebook div:nth-child(2) {
+  left: 32px;
+  animation-delay: -0.12s;
+}
+.lds-facebook div:nth-child(3) {
+  left: 56px;
+  animation-delay: 0;
+}
+@keyframes lds-facebook {
+  0% {
+    top: 8px;
+    height: 64px;
+  }
+  50%, 100% {
+    top: 24px;
+    height: 32px;
+  }
+}
+/**LOADING ICON**/
+/*all input that have type button*/
+    input[type='button'] {
+       text-align: left;
+    }
+    .nav-tabs li a{
+      color:black;
+    }
+    .nav-tabs li.active a{
+      color:white;
+      background-color: #005EB8;
+    }
+    .nav-tabs li.active a:focus{      
+      color:white;
+      background-color: #005EB8;
+    }
+    .btn-focus{
+      color:white;
+      background-color: #005EB8;
+    }
+    .btn-focus:focus{
+      color:white;
+      background-color: #005EB8;
+    }
+    .btn-margin-top{
+      margin-top: 2px;
+      margin-bottom: 2px;
+    }
+    .btn-margin-side{
+      margin-left: 2px;
+      margin-right: 2px;
+    }
+    .text-font-1{
+      color:#FF4019;    
+      font-weight: 600;
+    }
+    .table-responsive{
+      border: 0;
+    }
+    .btn-excel{
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <ul class="nav nav-tabs nav-justified">
+    <li class="active"><a data-toggle="tab" href="#schedule-tab-1">Schedules by Service</a></li>
+    <li><a data-toggle="tab" href="#schedule-tab-2">Schedules by Loading Port</a></li>
+    <li><a data-toggle="tab" href="#schedule-tab-3">Port Klang Schedules</a></li>
+  </ul>
+
+  <div class="tab-content">
+    <div id="schedule-tab-1" class="tab-pane fade in active">
+      <div class="container">
+      <div class="row">
+          <button type="button" style="text-align: left" class="col-lg-3 col-sm-4 col-xs-12 btn btn-default btn-margin-top btn-service-schedule" data-sheet-id="1i_cK8b53MTBOHJgD6CFcQTxuSM7lB073In7F5EFw14M">Kuching Express Service 1 (KEX1)</button><div style="clear: both"></div>
+          <button type="button" style="text-align: left" class="col-lg-3 col-sm-4 col-xs-12 btn btn-default btn-margin-top btn-service-schedule" data-sheet-id="1_Da24qQNQV-kNUjoXkE-Rc922tia4du16ZlTT2QHWSQ">Kuching Express Service 2 (KEX2)</button><div style="clear: both"></div>
+          <button type="button" style="text-align: left" class="col-lg-3 col-sm-4 col-xs-12 btn btn-default btn-margin-top btn-service-schedule" data-sheet-id="1kUf2FchHM_24Ges5ZaxCklLh_U0NuAYaiHB_hLrtuzc">Sibu Express Service (SBX)</button><div style="clear: both"></div>
+          <button type="button" style="text-align: left" class="col-lg-3 col-sm-4 col-xs-12 btn btn-default btn-margin-top btn-service-schedule" data-sheet-id="1qaEUN8RYuL1JtSjUVO35AB_yFTF0qhhX0lkDlPd46Qk">North Borneo Express 1 (NBX1)</button><div style="clear: both"></div>
+          <button type="button" style="text-align: left" class="col-lg-3 col-sm-4 col-xs-12 btn btn-default btn-margin-top btn-service-schedule" data-sheet-id="1bY5MeJEeuK49Bk4MRUgsgfBySW5526EHtsPnp-V4dg0">North Borneo Express 2 (NBX2)</button><div style="clear: both"></div>
+          <button type="button" style="text-align: left" class="col-lg-3 col-sm-4 col-xs-12 btn btn-default btn-margin-top btn-service-schedule" data-sheet-id="12ie8jx2bjHOGc7_CRhndPFaLxpyBZU9FxsyExV4mHjA">Tawau Sandakan Service (TSB)</button><div style="clear: both"></div>
+          <button type="button" style="text-align: left" class="col-lg-3 col-sm-4 col-xs-12 btn btn-default btn-margin-top btn-service-schedule" data-sheet-id="1iV0FqTNFOarZKJJPTJ-aLITzuwzAOnXbnYRy-rMt2aQ">Pasir Gudang Express Service (KSX)</button><div style="clear: both"></div>
+          
+      </div>        
+      </div>
+
+      <hr>
+      <div style="clear:both;"></div>
+      <div id="wrapper-table-service-schedule">
+      </div>
+    </div>
+    <div id="schedule-tab-2" class="tab-pane fade">
+      <h3>Loading From</h3>
+      <div class="container">
+      <div class="row">
+        <button type="button" style="text-align: left" class="col-lg-2 col-sm-3 col-xs-12 btn btn-default btn-margin-top btn-margin-side btn-loading-port-schedule" data-discharge-to="01">Port Klang (PKG)</button>
+        <button type="button" style="text-align: left" class="col-lg-2 col-sm-3 col-xs-12 btn btn-default btn-margin-top btn-margin-side btn-loading-port-schedule" data-discharge-to="02">Singapore (SIN)</button>
+        <button type="button" style="text-align: left" class="col-lg-2 col-sm-3 col-xs-12 btn btn-default btn-margin-top btn-margin-side btn-loading-port-schedule" data-discharge-to="03">Sibu (SBW)</button>
+        <button type="button" style="text-align: left" class="col-lg-2 col-sm-3 col-xs-12 btn btn-default btn-margin-top btn-margin-side btn-loading-port-schedule" data-discharge-to="04">Tawau (TWU)</button>
+        <button type="button" style="text-align: left" class="col-lg-2 col-sm-3 col-xs-12 btn btn-default btn-margin-top btn-margin-side btn-loading-port-schedule" data-discharge-to="05">Pasir Gudang (PGU)</button>
+        <button type="button" style="text-align: left" class="col-lg-2 col-sm-3 col-xs-12 btn btn-default btn-margin-top btn-margin-side btn-loading-port-schedule" data-discharge-to="06">Kuching (KCH)</button>
+        <button type="button" style="text-align: left" class="col-lg-2 col-sm-3 col-xs-12 btn btn-default btn-margin-top btn-margin-side btn-loading-port-schedule" data-discharge-to="07">Kota Kinabalu (BKI)</button>
+        <button type="button" style="text-align: left" class="col-lg-2 col-sm-3 col-xs-12 btn btn-default btn-margin-top btn-margin-side btn-loading-port-schedule" data-discharge-to="08">Muara (MUA)</button>
+        <button type="button" style="text-align: left" class="col-lg-2 col-sm-3 col-xs-12 btn btn-default btn-margin-top btn-margin-side btn-loading-port-schedule" data-discharge-to="09">Penang (PEN)</button>
+        <button type="button" style="text-align: left" class="col-lg-2 col-sm-3 col-xs-12 btn btn-default btn-margin-top btn-margin-side btn-loading-port-schedule" data-discharge-to="10">Bintulu (BTU)</button>
+        <button type="button" style="text-align: left" class="col-lg-2 col-sm-3 col-xs-12 btn btn-default btn-margin-top btn-margin-side btn-loading-port-schedule" data-discharge-to="11">Sandakan (SDK)</button>
+      </div>
+      </div>
+      <hr>
+      <div class="text-center"><p class="text-font-1" id="alert-font-1"></p></div>
+      <div style="clear:both;"></div>
+      <div class="row">
+          <div class="col-lg-2 col-sm-3 col-xs-12">
+              <div id="wrapper-discharge-to"></div>
+          </div>
+          <div class="col-lg-10 col-sm-9 col-xs-12">
+          <div id="wrapper-table-loading-port-schedule">
+            </div>
+          </div>
+      </div>
+    </div>
+    <div id="schedule-tab-3" class="tab-pane fade">
+      <h3 class="col-xs-12">Port Klang Schedules</h3>  
+      <div style="clear:both;"></div>
+        <div class="container">
+          <div class="row">
+            <div id="wrapper-table-full-schedule"  class="table-responsive"></div>
+            <div id="wrapper-hidden-temporary" style="display:none!important"></div>
+            <div class="table-responsive">
+              <div class="col-lg-6 col-xs-12">
+                <table class="table table-bordered">
+                  <tr>
+                    <td>GROSS WEIGHT PER CONTAINER ALLOWED :-</td>
+                    <td>OPR CODE: AMB</td>
+                  </tr>
+                  <tr>
+                    <td>20' : 30.0 MT & 40' : 30.0 MT</td>
+                    <td>SHIPPING AGENT: BS0536</td>
+                  </tr>
+                </table>
+              </div>
+              <div style="clear:both"></div>
+              <div class="col-lg-12 col-xs-12">
+                <p>* Schedule subject to changes with or without prior notice.</p>
+              </div>
+              <div style="clear:both"></div>
+              <div class="col-lg-12 col-xs-12">
+                <table class="table">
+                  <tr>
+                    <td style="text-align: center"><span><b>* LOOKING FORWARD ON YOUR VALUABLE SUPPORT, THANK YOU *</b></span></td>                   
+                  </tr>
+                  <tr>
+                    <td>&nbsp;</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
+</body>
+<script type="text/javascript">
+  var loadingPortList01 = [];//Port Klang (PKG)
+  var loadingPortList02 = [];//Singapore (SIN)
+  var loadingPortList03 = [];//Sibu (SBW)
+  var loadingPortList04 = [];//Tawau (TWU)
+  var loadingPortList05 = [];//Pasir Gudang (PGU)
+  var loadingPortList06 = [];//Kuching (KCH)
+  var loadingPortList07 = [];//Kota Kinabalu (BKI)
+  var loadingPortList08 = [];//Muara (MUA)
+  var loadingPortList09 = [];//Penang (PEN)
+  var loadingPortList10 = [];//Bintulu (BTU)
+  var loadingPortList11 = [];//Sandakan (SDK)
+  function DischargeTo(displayName, sheetId){
+    this.displayName=displayName;
+    this.sheetId = sheetId;
+  }
+  function FullScheduleObject(tableTitle, sheetId, appendId, countIndex){
+    this.tableTitle=tableTitle;
+    this.sheetId=sheetId;
+    this.appendId=appendId;
+    this.countIndex=countIndex;
+  }
+  //Port Klang (PKG)    
+  loadingPortList01.push(new DischargeTo('Kuching','18ETY-OEdK6Zow6t1otxo0QmUlJlxr0gs2JzbY2IUZOA'));
+  loadingPortList01.push(new DischargeTo('Bintulu','11fKsoe2Kq9y0ExpIuSP8J7gQOACDt2eKdt5N_Q_EyU4'));
+  loadingPortList01.push(new DischargeTo('Sibu','12tc3MzKfgsJbQKfQVpk1RXrz6LpmCfmZxN4-GH828yw'));
+  loadingPortList01.push(new DischargeTo('Kota Kinabalu','1Z8fCrBF6hzRIENHCuMT1z3_2BV_HPasbF1mqHtw-w8c'));
+  loadingPortList01.push(new DischargeTo('Sandakan','1KF5Na4-Y0k8aYSdUtL3MGZoPN-VaTB6Q1va1ujlHQGA'));
+  loadingPortList01.push(new DischargeTo('Tawau','1KF5Na4-Y0k8aYSdUtL3MGZoPN-VaTB6Q1va1ujlHQGA'));
+  loadingPortList01.push(new DischargeTo('Muara','1X1abFC-JD-oaxBHiBtVRDs0Ikeg0UPF9q7PInq9cYLI'));
+  loadingPortList01.push(new DischargeTo('Singapore','1xbM07ytQyx3klM-vGbiydryUpnGx-sUpfgBmiorzhCg'));
+  loadingPortList01.push(new DischargeTo('Penang','1enZlinHn9SzdxCu8g_P2Rpg5ckBFpUzuWhXr8k8vpew'));  
+  //Singapore (SIN)
+  loadingPortList02.push(new DischargeTo('Kuching','1c1vKwf-uDc-Q1OxsYxCRulu3IE94vYqULF8lpvDD0Nk'));
+  loadingPortList02.push(new DischargeTo('Bintulu','149Qy0XPHrZlb6T9bJQ9LK3kG6Th2U-Kf5oqs4M3RWlg'));
+  loadingPortList02.push(new DischargeTo('Sibu','1BgfPjpwrWFcfbZcDvL-i0RQewRQ2sXjzzIOBJW4YPmw'));
+  loadingPortList02.push(new DischargeTo('Kota Kinabalu','149Qy0XPHrZlb6T9bJQ9LK3kG6Th2U-Kf5oqs4M3RWlg'));
+  loadingPortList02.push(new DischargeTo('Sandakan','1HWFmurDJX865hvdcf3Dy82UuXJV0o9uA6wB-PZbn064'));
+  loadingPortList02.push(new DischargeTo('Tawau','1HWFmurDJX865hvdcf3Dy82UuXJV0o9uA6wB-PZbn064'));
+  loadingPortList02.push(new DischargeTo('Muara','149Qy0XPHrZlb6T9bJQ9LK3kG6Th2U-Kf5oqs4M3RWlg'));
+  //Sibu (SBW)
+  loadingPortList03.push(new DischargeTo('Penang','1OnqFTjLEUbubl4JqkFEoMaFPDSVghsJy4PHtpffVeDQ'));
+  loadingPortList03.push(new DischargeTo('Port Klang','1F61fyjDTS7jlRqPHsjM6nFUbygzSn8bIPsomQvnTCB4'));
+  loadingPortList03.push(new DischargeTo('Pasir Gudang','1DCwK-SEMs7z5ZI5xw9nRQkK5XMpaAkW57ok4Y8bzTpA'));
+  loadingPortList03.push(new DischargeTo('Singapore','1BgfPjpwrWFcfbZcDvL-i0RQewRQ2sXjzzIOBJW4YPmw'));
+  //Tawau (TWU)
+  loadingPortList04.push(new DischargeTo('Penang','1Em1F49q_qmSVCw6elOSMLzvJ8PosxbD-IK_jwyFUkOY'));
+  loadingPortList04.push(new DischargeTo('Port Klang','1THjERMIggA2HNlbXRXsbWVxuLf3M4T2SGKCdei3Y1ls'));
+  loadingPortList04.push(new DischargeTo('Pasir Gudang','1THjERMIggA2HNlbXRXsbWVxuLf3M4T2SGKCdei3Y1ls'));
+  loadingPortList04.push(new DischargeTo('Singapore','1HWFmurDJX865hvdcf3Dy82UuXJV0o9uA6wB-PZbn064'));
+  loadingPortList04.push(new DischargeTo('Bintulu','1THjERMIggA2HNlbXRXsbWVxuLf3M4T2SGKCdei3Y1ls'));
+  loadingPortList04.push(new DischargeTo('Sandakan','1THjERMIggA2HNlbXRXsbWVxuLf3M4T2SGKCdei3Y1ls'));
+  //Pasir Gudang (PGU)
+  loadingPortList05.push(new DischargeTo('Kuching','1NDL3KGsqz9EM5MZjRg5N7eyiyk9xj3ki7HUaTnF9F5k'));
+  loadingPortList05.push(new DischargeTo('Bintulu','1VxmXBD-HDSpP2OS6EEimZk07nmEKroSyBOUZ-kSQ9sk'));
+  loadingPortList05.push(new DischargeTo('Sibu','1XtfSV2CDA8H-sSEcPV73KS3YOpM3RGL6eB2MJqazT_o'));
+  loadingPortList05.push(new DischargeTo('Kota Kinabalu','1VxmXBD-HDSpP2OS6EEimZk07nmEKroSyBOUZ-kSQ9sk'));
+  loadingPortList05.push(new DischargeTo('Sandakan','1VxmXBD-HDSpP2OS6EEimZk07nmEKroSyBOUZ-kSQ9sk'));
+  loadingPortList05.push(new DischargeTo('Tawau','1VxmXBD-HDSpP2OS6EEimZk07nmEKroSyBOUZ-kSQ9sk'));
+  loadingPortList05.push(new DischargeTo('Muara','1PHnBsBbBNO3GkycbpHzvftCTfKHKY-iIE3lWxoNlDTg'));
+  loadingPortList05.push(new DischargeTo('Port Klang','1JLICulLC0tAShINqvCdrqbo8tbdgtpm9PjJZLh1cf9s'));
+  //Kuching (KCH)
+  loadingPortList06.push(new DischargeTo('Penang','1vA2c6hsCXqQJloNvkMPQXd7UGvHv7GQkefcro0kxKqg'));
+  loadingPortList06.push(new DischargeTo('Port Klang','177TKFNPY5TdA0Ob8VFpN4NeIYhnLxzMZqTvQc-ZXvT8'));
+  loadingPortList06.push(new DischargeTo('Pasir Gudang','1_JPV5T-Fcuurs1epcYS83UAcYldjpHRD0H2yHYEV1Ws'));
+  loadingPortList06.push(new DischargeTo('Sibu','1_JPV5T-Fcuurs1epcYS83UAcYldjpHRD0H2yHYEV1Ws'));
+  //Kota Kinabalu (BKI)
+  loadingPortList07.push(new DischargeTo('Penang','1c81GTxKTKrEE2OisYlV-2IVqsfwR4uprGVaj9f7IKD4'));
+  loadingPortList07.push(new DischargeTo('Port Klang','1c81GTxKTKrEE2OisYlV-2IVqsfwR4uprGVaj9f7IKD4'));
+  loadingPortList07.push(new DischargeTo('Pasir Gudang','1c81GTxKTKrEE2OisYlV-2IVqsfwR4uprGVaj9f7IKD4'));
+  loadingPortList07.push(new DischargeTo('Singapore','1c81GTxKTKrEE2OisYlV-2IVqsfwR4uprGVaj9f7IKD4'));
+  loadingPortList07.push(new DischargeTo('Bintulu','1c81GTxKTKrEE2OisYlV-2IVqsfwR4uprGVaj9f7IKD4'));
+  //Muara (MUA)
+  loadingPortList08.push(new DischargeTo('Penang','1b_NEZ7hn6NpS4UZT9lbxwneyj2v1BSKRyuZGBujM6PQ'));
+  loadingPortList08.push(new DischargeTo('Port Klang','1X1abFC-JD-oaxBHiBtVRDs0Ikeg0UPF9q7PInq9cYLI'));
+  loadingPortList08.push(new DischargeTo('Pasir Gudang','1PHnBsBbBNO3GkycbpHzvftCTfKHKY-iIE3lWxoNlDTg'));
+  loadingPortList08.push(new DischargeTo('Singapore','149Qy0XPHrZlb6T9bJQ9LK3kG6Th2U-Kf5oqs4M3RWlg'));
+  loadingPortList08.push(new DischargeTo('Bintulu','1cFJ6jUouQZpYecaAxIaauL1gBdV4yfDlGJ5mAJHoXSE'));
+  loadingPortList08.push(new DischargeTo('Kota Kinabalu','1cFJ6jUouQZpYecaAxIaauL1gBdV4yfDlGJ5mAJHoXSE'));
+  //Penang (PEN)
+  loadingPortList09.push(new DischargeTo('Kuching','1-NVf3shWiaoleMydgbBRcUvh3DAzuHFoiA5vzgMCfXc'));
+  loadingPortList09.push(new DischargeTo('Bintulu','1mderGZi_hhTP1rzOOELCmmzd0b-bjJ58yXJzDJ7iUqg'));
+  loadingPortList09.push(new DischargeTo('Sibu','1OnqFTjLEUbubl4JqkFEoMaFPDSVghsJy4PHtpffVeDQ'));
+  loadingPortList09.push(new DischargeTo('Kota Kinabalu','1mderGZi_hhTP1rzOOELCmmzd0b-bjJ58yXJzDJ7iUqg'));
+  loadingPortList09.push(new DischargeTo('Sandakan','1Em1F49q_qmSVCw6elOSMLzvJ8PosxbD-IK_jwyFUkOY'));
+  loadingPortList09.push(new DischargeTo('Tawau','1Em1F49q_qmSVCw6elOSMLzvJ8PosxbD-IK_jwyFUkOY'));
+  loadingPortList09.push(new DischargeTo('Muara','1b_NEZ7hn6NpS4UZT9lbxwneyj2v1BSKRyuZGBujM6PQ'));
+  loadingPortList09.push(new DischargeTo('Port Klang','1mderGZi_hhTP1rzOOELCmmzd0b-bjJ58yXJzDJ7iUqg'));  
+  //Bintulu (BTU)
+  loadingPortList10.push(new DischargeTo('Penang','1mderGZi_hhTP1rzOOELCmmzd0b-bjJ58yXJzDJ7iUqg'));
+  loadingPortList10.push(new DischargeTo('Port Klang','1iWJZX2pazmVDoEvG5JmeGkr3fBF10o2ShMQr6hZ71t4'));
+  loadingPortList10.push(new DischargeTo('Pasir Gudang','1iWJZX2pazmVDoEvG5JmeGkr3fBF10o2ShMQr6hZ71t4'));
+  loadingPortList10.push(new DischargeTo('Singapore','149Qy0XPHrZlb6T9bJQ9LK3kG6Th2U-Kf5oqs4M3RWlg'));
+  loadingPortList10.push(new DischargeTo('Tawau','1THjERMIggA2HNlbXRXsbWVxuLf3M4T2SGKCdei3Y1ls'));
+  loadingPortList10.push(new DischargeTo('Sandakan','1-vuGWPuXFBVX5OAViUZC9cZE-t5WetpW0MXlCnZbwmQ'));
+  //Sandakan (SDK)
+  loadingPortList11.push(new DischargeTo('Port Klang','1-vuGWPuXFBVX5OAViUZC9cZE-t5WetpW0MXlCnZbwmQ'));
+  loadingPortList11.push(new DischargeTo('Pasir Gudang','1-vuGWPuXFBVX5OAViUZC9cZE-t5WetpW0MXlCnZbwmQ'));
+  loadingPortList11.push(new DischargeTo('Singapore','1HWFmurDJX865hvdcf3Dy82UuXJV0o9uA6wB-PZbn064'));
+  loadingPortList11.push(new DischargeTo('Bintulu','1-vuGWPuXFBVX5OAViUZC9cZE-t5WetpW0MXlCnZbwmQ'));
+
+  $(document).ready(function(){
+      $('.btn-service-schedule').on('click', function(){
+          $('.btn-service-schedule').removeClass('btn-focus');
+          $(this).addClass('btn-focus');
+          addSpinner('wrapper-table-service-schedule');
+          $.ajax({
+            url: "https://docs.google.com/spreadsheets/u/1/d/"+$(this).attr('data-sheet-id')+"/gviz/tq?tqx=out:html&tq&gid=0", 
+            success: function(result){
+              $("#wrapper-table-service-schedule").html(result);
+              var html='<div class="table-responsive">';
+              html+='<div class="text-left"><button type="button" class="btn btn-excel btn-default btn-focus btn-service-schedule-excel" style="position:absolute">Excel</button></div><br><div style="clear: both"></div><br>';
+              html +=$("#wrapper-table-service-schedule table").prop('outerHTML');
+              html+='</div>';
+              $("#wrapper-table-service-schedule").html( html);
+              $("#wrapper-table-service-schedule").find('table').attr('id', 'table-service-schedule')
+              hideEmptyCols('table-service-schedule');
+              $('#table-service-schedule').addClass('table');
+              $('.btn-service-schedule-excel').on('click', function(){
+                $("#table-service-schedule").table2excel({
+                    exclude: ".excludeThisClass",
+                    name: "Schedules",
+                    filename: "Schedules.xls", // do include extension
+                    preserveColors: false, // set to true if you want background colors and font colors preserved
+                    exclude_img:true, 
+                    exclude_links:true, 
+                    exclude_inputs:true,
+                });
+              });
+            }
+          });
+      });
+      function hideEmptyCols(tableId) {
+          var table = document.getElementById(tableId);
+          var row= table.rows[0];
+          var indexCount = 0;
+          for (var j = 0, col; col = row.cells[j]; j++) {
+            if(col.innerText == '' || col.innerText==null || col.innerText == 'undefined'){
+              break;
+            }else{
+              indexCount++;
+            }
+          }
+          if(indexCount>0){
+            for (var i = 0, row; row = table.rows[i]; i++) {
+               //iterate through rows
+               //rows would be accessed using the "row" variable assigned in the for loop
+               for (var j = row.cells.length-1 ; j >=indexCount; j--) {
+                  row.deleteCell(j);
+               }
+            }
+            var $row = $('#'+tableId).find('tr:first');
+            $($row).css('background-color','#005EB8');
+            $($row).css('color','#FFF');
+          }else{
+            $('#'+tableId).closest('div').html('<span>No record(s) found. </span>');
+          }
+          
+      }
+      function addSpinner(objId){
+        var html='<div class="lds-facebook"><div></div><div></div><div></div></div> ';
+        $("#"+objId).html(html);
+      }
+      function removeSpinner(){
+        $('.lds-facebook').remove();
+      }
+      $('.btn-loading-port-schedule').on('click', function(){
+          $('.btn-loading-port-schedule').removeClass('btn-focus');
+          $(this).addClass('btn-focus');
+          addSpinner('wrapper-discharge-to');
+          $("#wrapper-table-loading-port-schedule").html('');
+          $('#alert-font-1').html('');
+          var loadingPortList = [];
+          var id = $(this).attr('data-discharge-to');
+          var loadingPortList = [];
+          var alertText='';
+          if(id=='01'){
+            loadingPortList=loadingPortList01;
+          }else if(id=='02'){
+            loadingPortList=loadingPortList02;
+          }else if(id=='03'){
+            loadingPortList=loadingPortList03;
+            alertText='Note : Safe Working Load(SWL) of Sibu Port is 35 M/Tons.';
+          }else if(id=='04'){
+            loadingPortList=loadingPortList04;
+            alertText='Note : Safe Working Load(SWL) of Tawau Port is 32 M/Tons.';
+          }else if(id=='05'){
+            loadingPortList=loadingPortList05;
+          }else if(id=='06'){
+            loadingPortList=loadingPortList06;
+            alertText='Note : Safe Working Load(SWL) of Kuching Port is 35 M/Tons.';
+          }else if(id=='07'){
+            loadingPortList=loadingPortList07;
+            alertText='Note : Safe Working Load(SWL) of Kota Kinabalu Port is 40 M/Tons.';
+          }else if(id=='08'){
+            loadingPortList=loadingPortList08;
+            alertText='Note : Safe Working Load(SWL) of Muara Port is 35 M/Tons.';
+          }else if(id=='09'){
+            loadingPortList=loadingPortList09;
+          }else if(id=='10'){
+            loadingPortList=loadingPortList10;
+            alertText='Note : Safe Working Load(SWL) of Bintulu Port is 40 M/Tons.';
+          }else if(id=='11'){
+            loadingPortList=loadingPortList11;
+            alertText='Note : Safe Working Load(SWL) of Sandakan Port is 32 M/Tons.';
+          }
+          var html ='<h3>Discharge To</h3>';
+          for (var j = 0; j < loadingPortList.length; j++){
+            var o = loadingPortList[j];
+            html+='<button type="button" style="text-align: left" class="col-lg-12 col-xs-12 btn btn-default btn-margin-top btn-loading-port-to-schedule" data-sheet-id="'+o.sheetId+'">'+o.displayName+'</button><div style="clear: both"></div>';
+          }
+          $('#wrapper-discharge-to').html(html);
+          $('#alert-font-1').html(alertText);
+          $('.btn-loading-port-to-schedule').on('click',function(){
+          $('.btn-loading-port-to-schedule').removeClass('btn-focus');
+          $(this).addClass('btn-focus');
+          addSpinner('wrapper-table-loading-port-schedule');
+          $.ajax({
+              url: "https://docs.google.com/spreadsheets/u/1/d/"+$(this).attr('data-sheet-id')+"/gviz/tq?tqx=out:html&tq&gid=0", 
+              success: function(result){
+                $("#wrapper-table-loading-port-schedule").html(result);
+                var html='<div class="table-responsive">';
+                html+='<div class="text-left"><button type="button" class="btn btn-default btn-excel btn-focus btn-margin-top btn-loading-port-schedule-excel" style="position:absolute">Excel</button></div><br><div style="clear: both"></div><br>';              
+                html +=$("#wrapper-table-loading-port-schedule table").prop('outerHTML');
+                html+='</div>';
+                $("#wrapper-table-loading-port-schedule").html( html);
+                $("#wrapper-table-loading-port-schedule").find('table').attr('id', 'table-loading-port-schedule')
+                hideEmptyCols('table-loading-port-schedule');
+                $('#table-loading-port-schedule').addClass('table');
+                $('.btn-loading-port-schedule-excel').on('click', function(){
+                  $("#table-loading-port-schedule").table2excel({
+                      exclude: ".excludeThisClass",
+                      name: "Schedules",
+                      filename: "Schedules.xls", // do include extension
+                      preserveColors: false, // set to true if you want background colors and font colors preserved
+                      exclude_img:true, 
+                      exclude_links:true, 
+                      exclude_inputs:true,
+                  });
+                });
+              }
+            });
+        });
+          $('.btn-loading-port-to-schedule').parent().find('.btn-loading-port-to-schedule:first').trigger('click');
+      });
+    
+    //Default
+    $('.btn-service-schedule').parent().find('.btn-service-schedule:first').trigger('click');
+    $('.btn-loading-port-schedule').parent().find('.btn-loading-port-schedule:first').trigger('click');
+    //Column 3 Full Schedule
+    var listFullSchedule = [];
+    var column3Count=0;
+    var column3WrapperId= 'wrapper-table-full-schedule';
+    listFullSchedule.push(new FullScheduleObject('PENANG', '1l75nBiQpPo0CdjzV60D93Waahc3MHR6r8aZ4OD7rFM8', column3WrapperId, column3Count++));
+    listFullSchedule.push(new FullScheduleObject('SINGAPORE', '1h_4WdEuChayEEGYVB2LKr4JC1ePHQiqWw9ntreZbloM', column3WrapperId, column3Count++));
+    listFullSchedule.push(new FullScheduleObject('SANDAKAN - S14 (13 DAYS)', '1_QQ5iBmoT9sR7lirB9SoY31FPMyyg8SgIaJ6Xg4TyOI', column3WrapperId, column3Count++));
+    listFullSchedule.push(new FullScheduleObject('LABUAN (7 DAYS)', '14pHlL2UczhnDF-r9TJoLOynyTF1OVIaRjcyqzxV1Kgw', column3WrapperId, column3Count++));
+    listFullSchedule.push(new FullScheduleObject('TAWAU & LAHAD DATU - (S12) (10-13 DAYS)', '1hguXc-zAZYQepRYEO3xiSX_g3A47INN5jTvG-MDbb3s', column3WrapperId, column3Count++));
+    listFullSchedule.push(new FullScheduleObject('MUARA (4 DAYS)', '1BM16FdWZXn028MzMo7Nt0JVhzptIDPHKRzN_2pf6R8c', column3WrapperId, column3Count++));
+    listFullSchedule.push(new FullScheduleObject('BINTULU (PORT) & MIRI-(DOOR SERVICE) - Y11', '1MiJNoKh8Vzx71w2WTmWmcI7oIlMurq_H3Z-EsojjvXc', column3WrapperId, column3Count++));
+    listFullSchedule.push(new FullScheduleObject('KOTA KINABALU - S87 (4-5 DAYS)', '1b0skYPclBDdeKM49lp6gdJ4zq7eNLWMJLlofVNc7Nds', column3WrapperId, column3Count++));
+    listFullSchedule.push(new FullScheduleObject('DIRECT SIBU SERVICE - Y13 (6 DAYS)', '1Fk06WSnwD9qef8BTf9TU8Pf2mKM5Uu_VhC0C3XplCd8', column3WrapperId, column3Count++));
+    listFullSchedule.push(new FullScheduleObject('DIRECT KUCHING SERVICE - Y44 (3-4 DAYS)', '1-GVgZ-LaHIhKxMjeYkYrIvfh0K55OFQH0ee6a6eUsI4', column3WrapperId, column3Count++));
+
+    loadFullSchedule();
+    function loadFullSchedule(){
+      var count =0;      
+      addSpinner(column3WrapperId);
+      loadTableViaUrlV2(listFullSchedule);
+      $('#'+column3WrapperId).prepend('<div class="col-xs-12"><div class="text-left"><a href="http://docs.google.com/spreadsheets/d/1ci9A3Ff48Lor5DzYRb1XcpSKOtrpE8dL5b5kFzLZHkM/export?format=pdf" href="_blank" class="btn btn-default btn-excel btn-focus btn-margin-top btn-loading-port-schedule-excel" style="position:absolute">Download</a></div></div><br><div style="clear: both"></div><br>'); 
+      removeSpinner(); 
+    }
+    function loadTableViaUrlV2(fullScheduleObjectList){
+      if(fullScheduleObjectList.length>0){
+        var fullScheduleObject = fullScheduleObjectList.pop();
+        $("#"+fullScheduleObject.appendId).append('<div class="lds-facebook"><div></div><div></div><div></div></div>');        
+        $.ajax({
+          url: "https://docs.google.com/spreadsheets/u/1/d/"+fullScheduleObject.sheetId+"/gviz/tq?tqx=out:html&tq&gid=0", 
+          success: function(result){
+              $("#wrapper-hidden-temporary").html(result);         
+              var html='<div class="col-lg-6 col-sm-6 col-xs-12 table-wrapper">';         
+              html +=$("#wrapper-hidden-temporary table").prop('outerHTML');
+              html+='</div>';
+              $("#wrapper-hidden-temporary").html(html);              
+              $("#wrapper-hidden-temporary").find('table').attr('id', 'table-full-schedule-'+fullScheduleObject.countIndex);
+              hideEmptyCols('table-full-schedule-'+fullScheduleObject.countIndex);
+              var table = document.getElementById('table-full-schedule-'+fullScheduleObject.countIndex);
+              var row= table.rows[0];
+              var cellLength= row.cells.length;
+              $('#table-full-schedule-'+fullScheduleObject.countIndex).prepend('<tr><td style="color:yellow;background-color:#005EB8;text-align:center;font-weight:bold;" colspan="'+cellLength+'">'+fullScheduleObject.tableTitle+'</td></tr>');
+              $('#table-full-schedule-'+fullScheduleObject.countIndex).addClass('table');
+              $("#"+fullScheduleObject.appendId).append($("#wrapper-hidden-temporary .table-wrapper").prop('outerHTML'));
+              $("#"+fullScheduleObject.appendId).append(fullScheduleObject.countIndex%2==0? '<div style="clear: both"></div>':'');
+              $("#wrapper-hidden-temporary").html('');       
+              removeSpinner();    
+          }
+        }).done(function (result) {
+          loadTableViaUrlV2(fullScheduleObjectList);
+        });
+      }
+    }
+
+
+    // function loadTableViaUrl(tableTitle, sheetId, appendId, countIndex){
+    //   $.ajax({
+    //     url: "https://docs.google.com/spreadsheets/u/1/d/"+sheetId+"/gviz/tq?tqx=out:html&tq&gid=0", 
+    //     success: function(result){
+    //         $("#wrapper-hidden-temporary").html(result);         
+    //         var html='<div class="col-lg-6 col-sm-6 col-xs-12 table-wrapper">';         
+    //         html +=$("#wrapper-hidden-temporary table").prop('outerHTML');
+    //         html+='</div>';
+    //         $("#wrapper-hidden-temporary").html(html);
+    //         $("#wrapper-hidden-temporary").find('table').attr('id', 'table-full-schedule-'+countIndex);
+    //         hideEmptyCols('table-full-schedule-'+countIndex);
+    //         var table = document.getElementById('table-full-schedule-'+countIndex);
+    //         var row= table.rows[0];
+    //         var cellLength= row.cells.length;
+    //         $('#table-full-schedule-'+countIndex).prepend('<tr><td style="color:yellow;background-color:#005EB8;text-align:center;font-weight:bold;" colspan="'+cellLength+'">'+tableTitle+'</td></tr>');
+    //         $('#table-full-schedule-'+countIndex).addClass('table');
+    //         $("#"+appendId).append($("#wrapper-hidden-temporary .table-wrapper").prop('outerHTML'));
+    //         $("#wrapper-hidden-temporary").html('');          
+    //     }
+    //   });
+    // }
+  });  
+</script>
+
+</html>
