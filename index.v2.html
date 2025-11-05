@@ -104,6 +104,11 @@
         font-style: italic;
         color: #777;
     }
+    .schedule-title {
+        margin-top: 20px;
+        margin-bottom: 10px;
+        font-weight: bold;
+    }
   </style>
 </head>
 <body>
@@ -329,9 +334,8 @@ loadingPortList11.push(new DischargeTo('Bintulu','1-vuGWPuXFBVX5OAViUZC9cZE-t5We
 /******************** NEW SEARCH FUNCTIONALITY ********************/
 /******************************************************************/
 
-// Global store for all schedule data
-let ALL_SCHEDULE_DATA = [];
-let ALL_HEADERS = [];
+// *** MODIFIED *** Global store for all schedule data objects
+let ALL_SCHEDULE_OBJECTS = [];
 
 // --- Configuration ---
 const ALL_SHEETS_CONFIG = [
@@ -419,8 +423,6 @@ const ALL_SHEETS_CONFIG = [
 
 /**
  * Parses the strange JSON format from the Google Sheets gviz API.
- * @param {string} textResponse - The raw text response from the fetch.
- * @returns {object|null} A structured JSON object or null if parsing fails.
  */
 function parseGoogleSheetsJSON(textResponse) {
     try {
@@ -433,9 +435,8 @@ function parseGoogleSheetsJSON(textResponse) {
 }
 
 /**
- * Fetches and processes data from a single Google Sheet.
- * @param {object} sheetConfig - An object from ALL_SHEETS_CONFIG.
- * @returns {Promise} A promise that resolves when the data is fetched and processed.
+ * *** MODIFIED ***
+ * Fetches data and stores it as a complete object with its own headers.
  */
 function fetchSheetData(sheetConfig) {
     const url = `https://docs.google.com/spreadsheets/u/1/d/${sheetConfig.sheetId}/gviz/tq?tqx=out:json&tq&gid=0`;
@@ -445,18 +446,19 @@ function fetchSheetData(sheetConfig) {
     }).then(textResponse => {
         const parsedJson = parseGoogleSheetsJSON(textResponse);
         if (!parsedJson || !parsedJson.table || !parsedJson.table.rows.length) {
-            return;
+            return; // Skip empty or invalid sheets
         }
-        if (ALL_HEADERS.length === 0 && parsedJson.table.cols) {
-            ALL_HEADERS = parsedJson.table.cols.map(col => col.label || ' ');
-        }
-        parsedJson.table.rows.forEach(row => {
-            const rowData = {
-                loadingPort: sheetConfig.loadingPort,
-                dischargePort: sheetConfig.dischargePort,
-                cells: row.c.map(cell => (cell ? cell.v : ''))
-            };
-            ALL_SCHEDULE_DATA.push(rowData);
+
+        // Extract headers and rows for THIS sheet specifically
+        const headers = parsedJson.table.cols.map(col => col.label || ' ');
+        const rows = parsedJson.table.rows.map(row => row.c.map(cell => (cell ? cell.v : '')));
+
+        // Store everything as one object
+        ALL_SCHEDULE_OBJECTS.push({
+            loadingPort: sheetConfig.loadingPort,
+            dischargePort: sheetConfig.dischargePort,
+            headers: headers,
+            rows: rows
         });
     }).fail(err => {
         console.error(`Failed to load sheet ${sheetConfig.sheetId}:`, err);
@@ -464,11 +466,12 @@ function fetchSheetData(sheetConfig) {
 }
 
 /**
- * Populates the dropdown menus with unique port names.
+ * *** MODIFIED ***
+ * Populates dropdowns from the new data structure.
  */
 function populateDropdowns() {
-    const loadingPorts = [...new Set(ALL_SCHEDULE_DATA.map(item => item.loadingPort))].sort();
-    const dischargePorts = [...new Set(ALL_SCHEDULE_DATA.map(item => item.dischargePort))].sort();
+    const loadingPorts = [...new Set(ALL_SCHEDULE_OBJECTS.map(item => item.loadingPort))].sort();
+    const dischargePorts = [...new Set(ALL_SCHEDULE_OBJECTS.map(item => item.dischargePort))].sort();
     const loadingSelect = $('#loading-port-select');
     const dischargeSelect = $('#discharge-port-select');
     loadingSelect.empty().append('<option value="">Any</option>');
@@ -478,10 +481,7 @@ function populateDropdowns() {
 }
 
 /**
- * *** NEW ***
  * Checks if a cell value is a Google Sheet date string and formats it.
- * @param {*} cellValue - The value from the cell.
- * @returns {string} The formatted date or the original value.
  */
 function formatDateCell(cellValue) {
     if (typeof cellValue === 'string' && cellValue.startsWith('Date(')) {
@@ -492,56 +492,62 @@ function formatDateCell(cellValue) {
                 const month = parseInt(parts[1], 10); // Month is 0-indexed
                 const day = parseInt(parts[2], 10);
                 const date = new Date(year, month, day);
-                
-                // Manually build the "Sat, 04 Oct" format for consistency
                 const dayName = date.toLocaleDateString('en-US', { weekday: 'short' });
-                const dayOfMonth = ('0' + date.getDate()).slice(-2); // Pad with zero
+                const dayOfMonth = ('0' + date.getDate()).slice(-2);
                 const monthName = date.toLocaleDateString('en-US', { month: 'short' });
-
                 return `${dayName}, ${dayOfMonth} ${monthName}`;
             }
         } catch (e) {
-            console.error("Could not parse date:", cellValue, e);
-            return cellValue; // Return original value on error
+            return cellValue;
         }
     }
-    return cellValue; // Return original value if not a date string
+    return cellValue;
 }
 
 /**
- * Renders the search results into an HTML table.
- * @param {Array} results - The filtered array of schedule data.
+ * *** REWRITTEN ***
+ * Renders search results by creating a separate table for each matching schedule.
  */
 function renderResultsTable(results) {
     const container = $('#search-results-table');
     container.empty();
+
     if (results.length === 0) {
         container.html('<p class="text-center">No matching schedules found.</p>');
         return;
     }
-    let html = '<table id="search-results" class="table table-bordered table-striped">';
-    html += '<thead><tr style="background-color:#005EB8; color:white;">';
-    html += '<th>Loading Port</th>';
-    ALL_HEADERS.forEach(header => {
-        if (header.trim() !== '') {
-             html += `<th>${header}</th>`;
-        }
-    });
-    html += '</tr></thead>';
-    html += '<tbody>';
-    results.forEach(row => {
-        html += '<tr>';
-        html += `<td>${row.loadingPort}</td>`;
-        row.cells.forEach((cell, index) => {
-            if (ALL_HEADERS[index] && ALL_HEADERS[index].trim() !== '') {
-                // *** MODIFIED *** Use the new formatter function here
-                html += `<td>${formatDateCell(cell)}</td>`;
+
+    let finalHtml = '';
+    // Loop through each matching schedule object
+    results.forEach(schedule => {
+        // Add a title for each table
+        finalHtml += `<h4 class="schedule-title">Schedule: ${schedule.loadingPort} to ${schedule.dischargePort}</h4>`;
+        finalHtml += '<table class="table table-bordered table-striped">';
+        
+        // Table Head: Use the headers from THIS specific schedule
+        finalHtml += '<thead><tr style="background-color:#005EB8; color:white;">';
+        schedule.headers.forEach(header => {
+            if (header.trim() !== '') {
+                 finalHtml += `<th>${header}</th>`;
             }
         });
-        html += '</tr>';
+        finalHtml += '</tr></thead>';
+
+        // Table Body: Use the rows from THIS specific schedule
+        finalHtml += '<tbody>';
+        schedule.rows.forEach(row => {
+            finalHtml += '<tr>';
+            row.forEach((cell, index) => {
+                if (schedule.headers[index] && schedule.headers[index].trim() !== '') {
+                    finalHtml += `<td>${formatDateCell(cell)}</td>`;
+                }
+            });
+            finalHtml += '</tr>';
+        });
+        finalHtml += '</tbody></table>';
     });
-    html += '</tbody></table>';
-    container.html(html);
+
+    container.html(finalHtml);
 }
 
 
@@ -557,7 +563,7 @@ $(document).ready(function(){
     $.when.apply($, promises).always(function() {
         $('#loading-state').hide();
         $('#search-btn').prop('disabled', false);
-        if (ALL_SCHEDULE_DATA.length > 0) {
+        if (ALL_SCHEDULE_OBJECTS.length > 0) {
             populateDropdowns();
             $('#search-results-table').html('<p class="text-center">Please select loading and discharge ports and click Search.</p>');
         } else {
@@ -565,14 +571,17 @@ $(document).ready(function(){
         }
     });
 
+    // *** MODIFIED *** Search button click handler
     $('#search-btn').on('click', function() {
         const selectedLoadingPort = $('#loading-port-select').val();
         const selectedDischargePort = $('#discharge-port-select').val();
-        const results = ALL_SCHEDULE_DATA.filter(item => {
+        
+        const results = ALL_SCHEDULE_OBJECTS.filter(item => {
             const loadingMatch = !selectedLoadingPort || item.loadingPort === selectedLoadingPort;
-            const dischargeMatch = !selectedDischargePort || item.dischargePort.includes(selectedDischargePort) || item.dischargePort === selectedDischargePort;
+            const dischargeMatch = !selectedDischargePort || item.dischargePort === selectedDischargePort;
             return loadingMatch && dischargeMatch;
         });
+
         renderResultsTable(results);
     });
 
