@@ -334,8 +334,6 @@ let ALL_SCHEDULE_DATA = [];
 let ALL_HEADERS = [];
 
 // --- Configuration ---
-// Master list of all sheets to fetch for the search feature.
-// We give each a loading/discharge port name for context.
 const ALL_SHEETS_CONFIG = [
     // Port Klang (PKG) - loadingPortList01
     { sheetId: '18ETY-OEdK6Zow6t1otxo0QmUlJlxr0gs2JzbY2IUZOA', loadingPort: 'Port Klang (PKG)', dischargePort: 'Kuching' },
@@ -347,7 +345,6 @@ const ALL_SHEETS_CONFIG = [
     { sheetId: '1X1abFC-JD-oaxBHiBtVRDs0Ikeg0UPF9q7PInq9cYLI', loadingPort: 'Port Klang (PKG)', dischargePort: 'Muara' },
     { sheetId: '1xbM07ytQyx3klM-vGbiydryUpnGx-sUpfgBmiorzhCg', loadingPort: 'Port Klang (PKG)', dischargePort: 'Singapore' },
     { sheetId: '1enZlinHn9SzdxCu8g_P2Rpg5ckBFpUzuWhXr8k8vpew', loadingPort: 'Port Klang (PKG)', dischargePort: 'Penang' },
-    
     // Singapore (SIN) - loadingPortList02
     { sheetId: '1c1vKwf-uDc-Q1OxsYxCRulu3IE94vYqULF8lpvDD0Nk', loadingPort: 'Singapore (SIN)', dischargePort: 'Kuching' },
     { sheetId: '149Qy0XPHrZlb6T9bJQ9LK3kG6Th2U-Kf5oqs4M3RWlg', loadingPort: 'Singapore (SIN)', dischargePort: 'Bintulu' },
@@ -356,13 +353,11 @@ const ALL_SHEETS_CONFIG = [
     { sheetId: '1HWFmurDJX865hvdcf3Dy82UuXJV0o9uA6wB-PZbn064', loadingPort: 'Singapore (SIN)', dischargePort: 'Sandakan' },
     { sheetId: '1HWFmurDJX865hvdcf3Dy82UuXJV0o9uA6wB-PZbn064', loadingPort: 'Singapore (SIN)', dischargePort: 'Tawau' },
     { sheetId: '149Qy0XPHrZlb6T9bJQ9LK3kG6Th2U-Kf5oqs4M3RWlg', loadingPort: 'Singapore (SIN)', dischargePort: 'Muara' },
-
     // Sibu (SBW) - loadingPortList03
     { sheetId: '1OnqFTjLEUbubl4JqkFEoMaFPDSVghsJy4PHtpffVeDQ', loadingPort: 'Sibu (SBW)', dischargePort: 'Penang' },
     { sheetId: '1F61fyjDTS7jlRqPHsjM6nFUbygzSn8bIPsomQvnTCB4', loadingPort: 'Sibu (SBW)', dischargePort: 'Port Klang' },
     { sheetId: '1DCwK-SEMs7z5ZI5xw9nRQkK5XMpaAkW57ok4Y8bzTpA', loadingPort: 'Sibu (SBW)', dischargePort: 'Pasir Gudang' },
     { sheetId: '1BgfPjpwrWFcfbZcDvL-i0RQewRQ2sXjzzIOBJW4YPmw', loadingPort: 'Sibu (SBW)', dischargePort: 'Singapore' },
-
     // Tawau (TWU) - loadingPortList04
     { sheetId: '1Em1F49q_qmSVCw6elOSMLzvJ8PosxbD-IK_jwyFUkOY', loadingPort: 'Tawau (TWU)', dischargePort: 'Penang' },
     { sheetId: '1THjERMIggA2HNlbXRXsbWVxuLf3M4T2SGKCdei3Y1ls', loadingPort: 'Tawau (TWU)', dischargePort: 'Port Klang' },
@@ -370,7 +365,6 @@ const ALL_SHEETS_CONFIG = [
     { sheetId: '1HWFmurDJX865hvdcf3Dy82UuXJV0o9uA6wB-PZbn064', loadingPort: 'Tawau (TWU)', dischargePort: 'Singapore' },
     { sheetId: '1THjERMIggA2HNlbXRXsbWVxuLf3M4T2SGKCdei3Y1ls', loadingPort: 'Tawau (TWU)', dischargePort: 'Bintulu' },
     { sheetId: '1THjERMIggA2HNlbXRXsbWVxuLf3M4T2SGKCdei3Y1ls', loadingPort: 'Tawau (TWU)', dischargePort: 'Sandakan' },
-
     // Pasir Gudang (PGU) - loadingPortList05
     { sheetId: '1NDL3KGsqz9EM5MZjRg5N7eyiyk9xj3ki7HUaTnF9F5k', loadingPort: 'Pasir Gudang (PGU)', dischargePort: 'Kuching' },
     { sheetId: '1VxmXBD-HDSpP2OS6EEimZk07nmEKroSyBOUZ-kSQ9sk', loadingPort: 'Pasir Gudang (PGU)', dischargePort: 'Bintulu' },
@@ -380,20 +374,17 @@ const ALL_SHEETS_CONFIG = [
     { sheetId: '1VxmXBD-HDSpP2OS6EEimZk07nmEKroSyBOUZ-kSQ9sk', loadingPort: 'Pasir Gudang (PGU)', dischargePort: 'Tawau' },
     { sheetId: '1PHnBsBbBNO3GkycbpHzvftCTfKHKY-iIE3lWxoNlDTg', loadingPort: 'Pasir Gudang (PGU)', dischargePort: 'Muara' },
     { sheetId: '1JLICulLC0tAShINqvCdrqbo8tbdgtpm9PjJZLh1cf9s', loadingPort: 'Pasir Gudang (PGU)', dischargePort: 'Port Klang' },
-
     // Kuching (KCH) - loadingPortList06
     { sheetId: '1vA2c6hsCXqQJloNvkMPQXd7UGvHv7GQkefcro0kxKqg', loadingPort: 'Kuching (KCH)', dischargePort: 'Penang' },
     { sheetId: '177TKFNPY5TdA0Ob8VFpN4NeIYhnLxzMZqTvQc-ZXvT8', loadingPort: 'Kuching (KCH)', dischargePort: 'Port Klang' },
     { sheetId: '1_JPV5T-Fcuurs1epcYS83UAcYldjpHRD0H2yHYEV1Ws', loadingPort: 'Kuching (KCH)', dischargePort: 'Pasir Gudang' },
     { sheetId: '1_JPV5T-Fcuurs1epcYS83UAcYldjpHRD0H2yHYEV1Ws', loadingPort: 'Kuching (KCH)', dischargePort: 'Sibu' },
-
     // Kota Kinabalu (BKI) - loadingPortList07
     { sheetId: '1c81GTxKTKrEE2OisYlV-2IVqsfwR4uprGVaj9f7IKD4', loadingPort: 'Kota Kinabalu (BKI)', dischargePort: 'Penang' },
     { sheetId: '1c81GTxKTKrEE2OisYlV-2IVqsfwR4uprGVaj9f7IKD4', loadingPort: 'Kota Kinabalu (BKI)', dischargePort: 'Port Klang' },
     { sheetId: '1c81GTxKTKrEE2OisYlV-2IVqsfwR4uprGVaj9f7IKD4', loadingPort: 'Kota Kinabalu (BKI)', dischargePort: 'Pasir Gudang' },
     { sheetId: '1c81GTxKTKrEE2OisYlV-2IVqsfwR4uprGVaj9f7IKD4', loadingPort: 'Kota Kinabalu (BKI)', dischargePort: 'Singapore' },
     { sheetId: '1c81GTxKTKrEE2OisYlV-2IVqsfwR4uprGVaj9f7IKD4', loadingPort: 'Kota Kinabalu (BKI)', dischargePort: 'Bintulu' },
-
     // Muara (MUA) - loadingPortList08
     { sheetId: '1b_NEZ7hn6NpS4UZT9lbxwneyj2v1BSKRyuZGBujM6PQ', loadingPort: 'Muara (MUA)', dischargePort: 'Penang' },
     { sheetId: '1X1abFC-JD-oaxBHiBtVRDs0Ikeg0UPF9q7PInq9cYLI', loadingPort: 'Muara (MUA)', dischargePort: 'Port Klang' },
@@ -401,7 +392,6 @@ const ALL_SHEETS_CONFIG = [
     { sheetId: '149Qy0XPHrZlb6T9bJQ9LK3kG6Th2U-Kf5oqs4M3RWlg', loadingPort: 'Muara (MUA)', dischargePort: 'Singapore' },
     { sheetId: '1cFJ6jUouQZpYecaAxIaauL1gBdV4yfDlGJ5mAJHoXSE', loadingPort: 'Muara (MUA)', dischargePort: 'Bintulu' },
     { sheetId: '1cFJ6jUouQZpYecaAxIaauL1gBdV4yfDlGJ5mAJHoXSE', loadingPort: 'Muara (MUA)', dischargePort: 'Kota Kinabalu' },
-
     // Penang (PEN) - loadingPortList09
     { sheetId: '1-NVf3shWiaoleMydgbBRcUvh3DAzuHFoiA5vzgMCfXc', loadingPort: 'Penang (PEN)', dischargePort: 'Kuching' },
     { sheetId: '1mderGZi_hhTP1rzOOELCmmzd0b-bjJ58yXJzDJ7iUqg', loadingPort: 'Penang (PEN)', dischargePort: 'Bintulu' },
@@ -411,7 +401,6 @@ const ALL_SHEETS_CONFIG = [
     { sheetId: '1Em1F49q_qmSVCw6elOSMLzvJ8PosxbD-IK_jwyFUkOY', loadingPort: 'Penang (PEN)', dischargePort: 'Tawau' },
     { sheetId: '1b_NEZ7hn6NpS4UZT9lbxwneyj2v1BSKRyuZGBujM6PQ', loadingPort: 'Penang (PEN)', dischargePort: 'Muara' },
     { sheetId: '1mderGZi_hhTP1rzOOELCmmzd0b-bjJ58yXJzDJ7iUqg', loadingPort: 'Penang (PEN)', dischargePort: 'Port Klang' },
-
     // Bintulu (BTU) - loadingPortList10
     { sheetId: '1mderGZi_hhTP1rzOOELCmmzd0b-bjJ58yXJzDJ7iUqg', loadingPort: 'Bintulu (BTU)', dischargePort: 'Penang' },
     { sheetId: '1iWJZX2pazmVDoEvG5JmeGkr3fBF10o2ShMQr6hZ71t4', loadingPort: 'Bintulu (BTU)', dischargePort: 'Port Klang' },
@@ -419,13 +408,13 @@ const ALL_SHEETS_CONFIG = [
     { sheetId: '149Qy0XPHrZlb6T9bJQ9LK3kG6Th2U-Kf5oqs4M3RWlg', loadingPort: 'Bintulu (BTU)', dischargePort: 'Singapore' },
     { sheetId: '1THjERMIggA2HNlbXRXsbWVxuLf3M4T2SGKCdei3Y1ls', loadingPort: 'Bintulu (BTU)', dischargePort: 'Tawau' },
     { sheetId: '1-vuGWPuXFBVX5OAViUZC9cZE-t5WetpW0MXlCnZbwmQ', loadingPort: 'Bintulu (BTU)', dischargePort: 'Sandakan' },
-
     // Sandakan (SDK) - loadingPortList11
     { sheetId: '1-vuGWPuXFBVX5OAViUZC9cZE-t5WetpW0MXlCnZbwmQ', loadingPort: 'Sandakan (SDK)', dischargePort: 'Port Klang' },
     { sheetId: '1-vuGWPuXFBVX5OAViUZC9cZE-t5WetpW0MXlCnZbwmQ', loadingPort: 'Sandakan (SDK)', dischargePort: 'Pasir Gudang' },
     { sheetId: '1HWFmurDJX865hvdcf3Dy82UuXJV0o9uA6wB-PZbn064', loadingPort: 'Sandakan (SDK)', dischargePort: 'Singapore' },
     { sheetId: '1-vuGWPuXFBVX5OAViUZC9cZE-t5WetpW0MXlCnZbwmQ', loadingPort: 'Sandakan (SDK)', dischargePort: 'Bintulu' }
 ];
+
 // --- Functions ---
 
 /**
@@ -435,7 +424,6 @@ const ALL_SHEETS_CONFIG = [
  */
 function parseGoogleSheetsJSON(textResponse) {
     try {
-        // The response is a string that needs to be cleaned up before parsing.
         const jsonString = textResponse.match(/google\.visualization\.Query\.setResponse\((.*)\);/s)[1];
         return JSON.parse(jsonString);
     } catch (e) {
@@ -453,25 +441,19 @@ function fetchSheetData(sheetConfig) {
     const url = `https://docs.google.com/spreadsheets/u/1/d/${sheetConfig.sheetId}/gviz/tq?tqx=out:json&tq&gid=0`;
     return $.ajax({
         url: url,
-        dataType: 'text' // Fetch as text to handle the special format
+        dataType: 'text'
     }).then(textResponse => {
         const parsedJson = parseGoogleSheetsJSON(textResponse);
         if (!parsedJson || !parsedJson.table || !parsedJson.table.rows.length) {
-            return; // Skip if sheet is empty or fails to parse
+            return;
         }
-
-        // Store the headers from the first sheet we successfully parse
         if (ALL_HEADERS.length === 0 && parsedJson.table.cols) {
             ALL_HEADERS = parsedJson.table.cols.map(col => col.label || ' ');
         }
-
-        // Process rows
         parsedJson.table.rows.forEach(row => {
             const rowData = {
-                // Add our own metadata for searching
                 loadingPort: sheetConfig.loadingPort,
                 dischargePort: sheetConfig.dischargePort,
-                // Store the actual row cells
                 cells: row.c.map(cell => (cell ? cell.v : ''))
             };
             ALL_SCHEDULE_DATA.push(rowData);
@@ -487,15 +469,43 @@ function fetchSheetData(sheetConfig) {
 function populateDropdowns() {
     const loadingPorts = [...new Set(ALL_SCHEDULE_DATA.map(item => item.loadingPort))].sort();
     const dischargePorts = [...new Set(ALL_SCHEDULE_DATA.map(item => item.dischargePort))].sort();
-
     const loadingSelect = $('#loading-port-select');
     const dischargeSelect = $('#discharge-port-select');
-
     loadingSelect.empty().append('<option value="">Any</option>');
     dischargeSelect.empty().append('<option value="">Any</option>');
-
     loadingPorts.forEach(port => loadingSelect.append(`<option value="${port}">${port}</option>`));
     dischargePorts.forEach(port => dischargeSelect.append(`<option value="${port}">${port}</option>`));
+}
+
+/**
+ * *** NEW ***
+ * Checks if a cell value is a Google Sheet date string and formats it.
+ * @param {*} cellValue - The value from the cell.
+ * @returns {string} The formatted date or the original value.
+ */
+function formatDateCell(cellValue) {
+    if (typeof cellValue === 'string' && cellValue.startsWith('Date(')) {
+        try {
+            const parts = cellValue.match(/\d+/g);
+            if (parts && parts.length >= 3) {
+                const year = parseInt(parts[0], 10);
+                const month = parseInt(parts[1], 10); // Month is 0-indexed
+                const day = parseInt(parts[2], 10);
+                const date = new Date(year, month, day);
+                
+                // Manually build the "Sat, 04 Oct" format for consistency
+                const dayName = date.toLocaleDateString('en-US', { weekday: 'short' });
+                const dayOfMonth = ('0' + date.getDate()).slice(-2); // Pad with zero
+                const monthName = date.toLocaleDateString('en-US', { month: 'short' });
+
+                return `${dayName}, ${dayOfMonth} ${monthName}`;
+            }
+        } catch (e) {
+            console.error("Could not parse date:", cellValue, e);
+            return cellValue; // Return original value on error
+        }
+    }
+    return cellValue; // Return original value if not a date string
 }
 
 /**
@@ -505,41 +515,32 @@ function populateDropdowns() {
 function renderResultsTable(results) {
     const container = $('#search-results-table');
     container.empty();
-
     if (results.length === 0) {
         container.html('<p class="text-center">No matching schedules found.</p>');
         return;
     }
-
     let html = '<table id="search-results" class="table table-bordered table-striped">';
-    
-    // Table Head
     html += '<thead><tr style="background-color:#005EB8; color:white;">';
-    // Add our custom columns first
     html += '<th>Loading Port</th>';
-    // Use the headers we captured from the sheet
     ALL_HEADERS.forEach(header => {
-        if (header.trim() !== '') { // Only add non-empty headers
+        if (header.trim() !== '') {
              html += `<th>${header}</th>`;
         }
     });
     html += '</tr></thead>';
-
-    // Table Body
     html += '<tbody>';
     results.forEach(row => {
         html += '<tr>';
-        html += `<td>${row.loadingPort}</td>`; // Display our custom loading port
+        html += `<td>${row.loadingPort}</td>`;
         row.cells.forEach((cell, index) => {
-            // Only add cells for which we have a header
             if (ALL_HEADERS[index] && ALL_HEADERS[index].trim() !== '') {
-                html += `<td>${cell}</td>`;
+                // *** MODIFIED *** Use the new formatter function here
+                html += `<td>${formatDateCell(cell)}</td>`;
             }
         });
         html += '</tr>';
     });
     html += '</tbody></table>';
-
     container.html(html);
 }
 
@@ -551,17 +552,11 @@ function renderResultsTable(results) {
 
 $(document).ready(function(){
     // --- INITIALIZE SEARCH FEATURE ---
-    $('#search-btn').prop('disabled', true); // Disable search button initially
-
-    // Create an array of promises, one for each sheet fetch
+    $('#search-btn').prop('disabled', true);
     const promises = ALL_SHEETS_CONFIG.map(config => fetchSheetData(config));
-
-    // Use $.when to wait for all AJAX calls to complete
     $.when.apply($, promises).always(function() {
-        // This block runs after all sheets have been fetched (or failed)
         $('#loading-state').hide();
         $('#search-btn').prop('disabled', false);
-        
         if (ALL_SCHEDULE_DATA.length > 0) {
             populateDropdowns();
             $('#search-results-table').html('<p class="text-center">Please select loading and discharge ports and click Search.</p>');
@@ -570,17 +565,14 @@ $(document).ready(function(){
         }
     });
 
-    // Search button click handler
     $('#search-btn').on('click', function() {
         const selectedLoadingPort = $('#loading-port-select').val();
         const selectedDischargePort = $('#discharge-port-select').val();
-
         const results = ALL_SCHEDULE_DATA.filter(item => {
             const loadingMatch = !selectedLoadingPort || item.loadingPort === selectedLoadingPort;
             const dischargeMatch = !selectedDischargePort || item.dischargePort.includes(selectedDischargePort) || item.dischargePort === selectedDischargePort;
             return loadingMatch && dischargeMatch;
         });
-
         renderResultsTable(results);
     });
 
@@ -604,13 +596,8 @@ $(document).ready(function(){
             $('#table-service-schedule').addClass('table');
             $('.btn-service-schedule-excel').on('click', function(){
               $("#table-service-schedule").table2excel({
-                  exclude: ".excludeThisClass",
-                  name: "Schedules",
-                  filename: "Schedules.xls",
-                  preserveColors: false,
-                  exclude_img:true, 
-                  exclude_links:true, 
-                  exclude_inputs:true,
+                  exclude: ".excludeThisClass", name: "Schedules", filename: "Schedules.xls", preserveColors: false,
+                  exclude_img:true, exclude_links:true, exclude_inputs:true,
               });
             });
           }
