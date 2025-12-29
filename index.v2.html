@@ -224,7 +224,7 @@
   loadingPortList01.push(new DischargeTo('Tawau (TWU)','1wA19KsOEAKgdngs1rioAqwFVPivZ4aEacWU_jDD7Lnc'));
   loadingPortList01.push(new DischargeTo('Sandakan (SDK)','1KF5Na4-Y0k8aYSdUtL3MGZoPN-VaTB6Q1va1ujlHQGA'));
   loadingPortList01.push(new DischargeTo('Muara (MUA)','1X1abFC-JD-oaxBHiBtVRDs0Ikeg0UPF9q7PInq9cYLI'));
-  loadingPortList01.push(new DischargeTo('Labuan (LBU)','PENDING PENDING'));
+  loadingPortList01.push(new DischargeTo('Labuan (LBU)','1hTl1c-VLVLDJKq6CMzHBUVTOIsZD6CN5xxWgkYsgNbs'));
   loadingPortList01.push(new DischargeTo('Singapore (SIN)','1xbM07ytQyx3klM-vGbiydryUpnGx-sUpfgBmiorzhCg'));
   loadingPortList01.push(new DischargeTo('Pasir Gudang (PGU)','PENDING PENDING'));
   loadingPortList01.push(new DischargeTo('Penang (PEN)','1enZlinHn9SzdxCu8g_P2Rpg5ckBFpUzuWhXr8k8vpew'));  
@@ -471,7 +471,7 @@
           addSpinner('wrapper-table-loading-port-schedule');
           var sheetId = $(this).attr('data-sheet-id');
           if (sheetId === 'PENDING PENDING') {
-            $("#wrapper-table-loading-port-schedule").html('<span>Please contact our local office for further assistance.</span>');
+            $("#wrapper-table-loading-port-schedule").html('<span style="font-size: 20px">Please contact our local office for further assistance.</span>');
             removeSpinner();
           } else {
             $.ajax({
