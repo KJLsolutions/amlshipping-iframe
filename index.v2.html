@@ -476,7 +476,7 @@
           addSpinner('wrapper-table-loading-port-schedule');
           var sheetId = $(this).attr('data-sheet-id');
           if (sheetId === 'PENDING PENDING') {
-            $("#wrapper-table-loading-port-schedule").html('<span style="font-size: 20px">Please contact our local office for further assistance.</span>');
+            $("#wrapper-table-loading-port-schedule").html('<span style="font-size: 20px; display: flex; align-items: center; justify-content: center; min-height: 300px; text-align: center;">Please contact our local office for further assistance.</span>');
             removeSpinner();
           } else {
             $.ajax({
