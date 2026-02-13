@@ -91,6 +91,17 @@
       padding-left: 20px;
       padding-right: 20px;
     }
+
+    /* target the last 2 columns (-n+2) */
+    #schedule-tab-3 table tr td:nth-last-child(-n+2),
+    #schedule-tab-3 table tr th:nth-last-child(-n+2) {
+        white-space: nowrap;
+    }
+
+    /* Ensure the first column remains normal/wrapping */
+    #schedule-tab-3 table tr td:first-child {
+        white-space: normal;
+    }
   </style>
 </head>
 <body>
