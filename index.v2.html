@@ -418,6 +418,14 @@
                for (var j = row.cells.length-1 ; j >=indexCount; j--) {
                   row.deleteCell(j);
                }
+               // If it's not the header row, replace empty/nbsp cells with "OMIT"
+               if (i > 0) {
+                 for (var k = 0; k < row.cells.length; k++) {
+                   if (row.cells[k].innerText.trim() === "") {
+                     row.cells[k].innerText = "OMIT";
+                   }
+                 }
+               }
             }
             var $row = $('#'+tableId).find('tr:first');
             $($row).css('background-color','#005EB8');
