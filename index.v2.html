@@ -378,6 +378,14 @@
             url: "https://docs.google.com/spreadsheets/u/1/d/"+$(this).attr('data-sheet-id')+"/gviz/tq?tqx=out:html&tq&gid=0", 
             success: function(result){
               $("#wrapper-table-service-schedule").html(result);
+              // Replace &nbsp; with "Omit" in empty cells
+              $("#wrapper-table-service-schedule table td").each(function(){
+                var cellContent = $(this).html().trim();
+                if(cellContent === '&nbsp;' || cellContent === '' || $.trim($(this).text()) === ''){
+                  $(this).html('Omit');
+                  $(this).addClass('omit-cell');
+                }
+              });
               var html='<div class="table-responsive">';
               html+='<div class="text-left"><button type="button" class="btn btn-excel btn-default btn-focus btn-service-schedule-excel" style="position:absolute">Excel</button></div><br><div style="clear: both"></div><br>';
               html +=$("#wrapper-table-service-schedule table").prop('outerHTML');
@@ -493,7 +501,16 @@
             $.ajax({
                 url: "https://docs.google.com/spreadsheets/u/1/d/"+sheetId+"/gviz/tq?tqx=out:html&tq&gid=0", 
                 success: function(result){
+                  
                   $("#wrapper-table-loading-port-schedule").html(result);
+                  // Replace &nbsp; with "Omit" in empty cells
+                  $("#wrapper-table-loading-port-schedule table td").each(function(){
+                    var cellContent = $(this).html().trim();
+                    if(cellContent === '&nbsp;' || cellContent === '' || $.trim($(this).text()) === ''){
+                      $(this).html('Omit');
+                      $(this).addClass('omit-cell');
+                    }
+                  });                  
                   var html='<div class="table-responsive">';
                   html+='<div class="text-left"><button type="button" class="btn btn-default btn-excel btn-focus btn-margin-top btn-loading-port-schedule-excel" style="position:absolute">Excel</button></div><br><div style="clear: both"></div><br>';              
                   html +=$("#wrapper-table-loading-port-schedule table").prop('outerHTML');
@@ -553,7 +570,15 @@
         $.ajax({
           url: "https://docs.google.com/spreadsheets/u/1/d/"+fullScheduleObject.sheetId+"/gviz/tq?tqx=out:html&tq&gid=0", 
           success: function(result){
-              $("#wrapper-hidden-temporary").html(result);         
+              $("#wrapper-hidden-temporary").html(result);  
+        // Replace &nbsp; with "Omit" in empty cells
+        $("#wrapper-hidden-temporary table td").each(function(){
+          var cellContent = $(this).html().trim();
+          if(cellContent === '&nbsp;' || cellContent === '' || $.trim($(this).text()) === ''){
+            $(this).html('Omit');
+            $(this).addClass('omit-cell');
+          }
+        });       
               var html='<div class="col-lg-6 col-sm-6 col-xs-12 table-wrapper">';         
               html +=$("#wrapper-hidden-temporary table").prop('outerHTML');
               html+='</div>';
