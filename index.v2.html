@@ -404,7 +404,11 @@
           var table = document.getElementById(tableId);
           var row= table.rows[0];
           var indexCount = 0;
+          var scnColIndex = -1;
           for (var j = 0, col; col = row.cells[j]; j++) {
+            if (col.innerText.trim().toUpperCase() === "SCN") {
+              scnColIndex = j;
+            }
             if(col.innerText == '' || col.innerText==null || col.innerText == 'undefined'){
               break;
             }else{
@@ -422,7 +426,9 @@
                if (i > 0) {
                  for (var k = 0; k < row.cells.length; k++) {
                    if (row.cells[k].innerText.trim() === "") {
-                     row.cells[k].innerText = "OMIT";
+                     if (k !== scnColIndex) {
+                       row.cells[k].innerText = "OMIT";
+                     }
                    }
                  }
                }
