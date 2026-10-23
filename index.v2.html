@@ -405,14 +405,11 @@
           var table = document.getElementById(tableId);
           var row= table.rows[0];
           var indexCount = 0;
-          var scnColIndex = -1;
-          var voyColIndex = -1;
+          var skipOmitCols = [];
           for (var j = 0, col; col = row.cells[j]; j++) {
-            if (col.innerText.trim().toUpperCase() === "SCN") {
-              scnColIndex = j;
-            }
-            if (col.innerText.trim().toUpperCase() === "VOY") {
-              voyColIndex = j;
+            var colName = col.innerText.trim().toUpperCase();
+            if (colName === "SCN" || colName === "VOY") {
+              skipOmitCols.push(j);
             }
             if(col.innerText == '' || col.innerText==null || col.innerText == 'undefined'){
               break;
@@ -431,7 +428,7 @@
                if (i > 0) {
                  for (var k = 0; k < row.cells.length; k++) {
                    if (row.cells[k].innerText.trim() === "") {
-                     if (k !== scnColIndex && k !== voyColIndex) {
+                     if (skipOmitCols.indexOf(k) === -1) {
                        row.cells[k].innerText = "OMIT";
                      }
                    }
